@@ -1,14 +1,15 @@
 /**
- * cardRenderer2D.ts — Exact Master Illustrated Goa Builder Pass Renderer
+ * cardRenderer2D.ts — Master Illustrated Goa Builder Pass (Canvas 2D Engine)
  * 
  * Layer 1: MASTER 2D ARTWORK (SINGLE SOURCE OF TRUTH)
  * Output size is strictly 1600x1008 px (Landscape).
  * 
- * Aesthetic: 100% Exact Match to Reference Design + Live Dynamic User Data
+ * Aesthetic: 100% Exact Match to Reference Design Template + Dynamic Overlays
  */
 
 import QRCode from 'qrcode';
 import { BuilderData } from '../types/builder';
+import cardTemplateUrl from '../assets/card-template.png';
 
 export const CARD_WIDTH = 1600;
 export const CARD_HEIGHT = 1008;
@@ -34,11 +35,10 @@ async function getTemplateImage(): Promise<HTMLImageElement | null> {
   if (cachedTemplateImage) return cachedTemplateImage;
   try {
     const img = new Image();
-    img.crossOrigin = 'anonymous';
     await new Promise((resolve, reject) => {
       img.onload = resolve;
       img.onerror = reject;
-      img.src = '/card-template.png';
+      img.src = cardTemplateUrl;
     });
     cachedTemplateImage = img;
     return img;
@@ -106,24 +106,6 @@ const DEEP_GREEN = '#08261E';
 const SUN_YELLOW = '#FFD166';
 const HOT_PINK = '#FF2A85';
 
-// ─── Procedural Fallback Renderer (In case image fails) ─────────────────────
-
-function drawProceduralBackground(ctx: CanvasRenderingContext2D, w: number, h: number) {
-  ctx.fillStyle = CREAM;
-  ctx.fillRect(0, 0, w, h);
-
-  const margin = 36;
-  ctx.strokeStyle = DEEP_GREEN;
-  ctx.lineWidth = 14;
-  roundRect(ctx, margin, margin, w - margin * 2, h - margin * 2, 26);
-  ctx.stroke();
-
-  ctx.strokeStyle = SUN_YELLOW;
-  ctx.lineWidth = 3;
-  roundRect(ctx, margin + 12, margin + 12, w - (margin + 12) * 2, h - (margin + 12) * 2, 18);
-  ctx.stroke();
-}
-
 // ─── Core Card Rendering Engine ──────────────────────────────────────────────
 
 let staticBackCache: HTMLCanvasElement | null = null;
@@ -148,7 +130,12 @@ export async function createCardFrontCanvas(
   if (templateImg && templateImg.complete && templateImg.naturalWidth > 0) {
     ctx.drawImage(templateImg, 0, 0, w, h);
   } else {
-    drawProceduralBackground(ctx, w, h);
+    ctx.fillStyle = CREAM;
+    ctx.fillRect(0, 0, w, h);
+    ctx.strokeStyle = DEEP_GREEN;
+    ctx.lineWidth = 14;
+    roundRect(ctx, 36, 36, w - 72, h - 72, 26);
+    ctx.stroke();
   }
 
   // 2. Load User Photo
@@ -197,7 +184,7 @@ export async function createCardFrontCanvas(
     ctx.drawImage(loadedImg, drawX, drawY, drawW, drawH);
     ctx.restore();
 
-    // Re-draw inner ring line over photo boundary for seamless integration
+    // Inner ring line boundary stroke over photo
     ctx.strokeStyle = DEEP_GREEN;
     ctx.lineWidth = 6;
     ctx.beginPath();
@@ -242,7 +229,6 @@ export async function createCardFrontCanvas(
   const stackY = 485;
   const stackW = 280;
 
-  // Clear original static text area cleanly with parchment cream
   ctx.fillStyle = CREAM;
   ctx.fillRect(leftX, stackY, stackW, 50);
 
@@ -409,7 +395,13 @@ export async function createCardBackCanvas(data: BuilderData): Promise<HTMLCanva
     staticBackCache.height = h;
     const sCtx = staticBackCache.getContext('2d');
     if (sCtx) {
-      drawProceduralBackground(sCtx, w, h);
+      sCtx.fillStyle = CREAM;
+      sCtx.fillRect(0, 0, w, h);
+      sCtx.strokeStyle = DEEP_GREEN;
+      sCtx.lineWidth = 14;
+      roundRect(sCtx, 36, 36, w - 72, h - 72, 26);
+      sCtx.stroke();
+
       sCtx.fillStyle = DEEP_GREEN;
       sCtx.textBaseline = 'middle';
       sCtx.textAlign = 'left';
