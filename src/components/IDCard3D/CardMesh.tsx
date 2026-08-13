@@ -96,14 +96,8 @@ export const CardMesh: React.FC<CardMeshProps> = ({
       }
     };
 
-    // Initial render immediately, debounce subsequent data updates
-    const renderTexturesImmediate = async () => {
-      await renderTextures();
-    };
-
-    renderTexturesImmediate();
-
-    const debounceTime = profile?.isMobile ? 100 : 120;
+    // Debounce to prevent heavy rendering on rapid keystrokes (120ms on mobile, 150ms desktop)
+    const debounceTime = profile?.isMobile ? 120 : 150;
     timer = setTimeout(renderTextures, debounceTime);
 
     return () => {
