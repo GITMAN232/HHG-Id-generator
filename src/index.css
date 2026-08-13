@@ -1,0 +1,442 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --green-deep: #0A2920;
+  --green-2: #0D382C;
+  --cream: #FAF6EE;
+  --cream-2: #F3EBDD;
+  --gold: #E3C578;
+  --gold-2: #D4AF37;
+  --coral: #FF2A85;
+}
+
+@layer base {
+  html {
+    overflow-x: hidden;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    @apply bg-goa-darkest text-slate-100 font-sans antialiased overflow-x-hidden min-h-screen selection:bg-pink-neon selection:text-white;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
+}
+
+/* Custom Guilloche & Security Pattern Backgrounds */
+.bg-guilloche {
+  background-color: #051a16;
+  background-image: 
+    radial-gradient(circle at 50% 50%, rgba(255, 209, 102, 0.05) 0%, transparent 60%),
+    repeating-linear-gradient(45deg, rgba(32, 107, 94, 0.08) 0px, rgba(32, 107, 94, 0.08) 2px, transparent 2px, transparent 10px),
+    repeating-linear-gradient(-45deg, rgba(255, 42, 133, 0.05) 0px, rgba(255, 42, 133, 0.05) 2px, transparent 2px, transparent 10px);
+}
+
+.bg-passport-texture {
+  background-color: #0b2b26;
+  background-image: radial-gradient(rgba(255, 209, 102, 0.1) 1px, transparent 0);
+  background-size: 16px 16px;
+}
+
+.bg-terminal-texture {
+  background-color: #06110f;
+  background-image: linear-gradient(rgba(0, 240, 255, 0.05) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(0, 240, 255, 0.05) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+.bg-festival-texture {
+  background-color: #1c0826;
+  background-image: radial-gradient(circle at 50% 0%, rgba(255, 42, 133, 0.25), transparent 70%),
+                    radial-gradient(circle at 100% 100%, rgba(255, 209, 102, 0.2), transparent 50%);
+}
+
+/* Metallic & Holographic Shimmer */
+.holo-shimmer {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.03) 25%,
+    rgba(255, 209, 102, 0.18) 45%,
+    rgba(255, 42, 133, 0.22) 50%,
+    rgba(0, 240, 255, 0.18) 55%,
+    rgba(255, 255, 255, 0.03) 75%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  background-size: 200% 200%;
+}
+
+.glass-panel {
+  background: rgba(11, 43, 38, 0.65);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 209, 102, 0.15);
+}
+
+.glass-panel-dark {
+  background: rgba(4, 21, 18, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(32, 107, 94, 0.3);
+}
+
+.passport-card {
+  container-type: inline-size;
+  aspect-ratio: 85.6 / 54;
+  width: 100%;
+  max-width: 100%;
+  color: var(--cream);
+  background:
+    radial-gradient(circle at 50% 30%, rgba(227, 197, 120, 0.13), transparent 34%),
+    linear-gradient(135deg, rgba(255, 42, 133, 0.1), transparent 28%),
+    linear-gradient(160deg, var(--green-2), var(--green-deep) 58%, #061812);
+  border: 0.72cqw solid rgba(227, 197, 120, 0.72);
+  border-radius: 3.2cqw;
+  box-shadow: 0 3cqw 7cqw rgba(0, 0, 0, 0.45);
+  overflow: hidden;
+  position: relative;
+  font-family: Outfit, sans-serif;
+}
+
+.passport-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0.32;
+  pointer-events: none;
+  background-image:
+    repeating-linear-gradient(34deg, rgba(227, 197, 120, 0.1) 0 0.16cqw, transparent 0.16cqw 1.25cqw),
+    repeating-linear-gradient(-34deg, rgba(255, 42, 133, 0.08) 0 0.14cqw, transparent 0.14cqw 1.6cqw);
+}
+
+.passport-card::after {
+  content: "HHG26 / BUILD HACK SHIP CREATE / GOA INDIA / ";
+  position: absolute;
+  inset-inline: 3.2cqw;
+  top: 7.4cqw;
+  color: rgba(227, 197, 120, 0.14);
+  font: 800 1.05cqw "JetBrains Mono", monospace;
+  letter-spacing: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.passport-inner {
+  position: relative;
+  z-index: 1;
+  height: 100%;
+  padding: 3cqw;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  gap: 2.1cqw;
+}
+
+.passport-header,
+.passport-footer {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.3cqw;
+  border-color: rgba(227, 197, 120, 0.32);
+}
+
+.passport-header {
+  padding-bottom: 1.35cqw;
+  border-bottom: 0.16cqw solid rgba(227, 197, 120, 0.32);
+}
+
+.passport-footer {
+  padding-top: 1.25cqw;
+  border-top: 0.16cqw solid rgba(227, 197, 120, 0.32);
+  font: 800 1.35cqw "JetBrains Mono", monospace;
+}
+
+.passport-brand {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 1cqw;
+  white-space: nowrap;
+}
+
+.passport-mark {
+  flex: 0 0 auto;
+  width: 4.5cqw;
+  height: 3.55cqw;
+  border: 0.17cqw solid var(--coral);
+  border-radius: 0.8cqw;
+  background: rgba(255, 42, 133, 0.16);
+  color: var(--coral);
+  display: grid;
+  place-items: center;
+  font: 900 1.45cqw "JetBrains Mono", monospace;
+}
+
+.passport-wordmark {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.72cqw;
+  font-weight: 900;
+  font-size: clamp(10px, 2.15cqw, 30px);
+  line-height: 1;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.passport-goa {
+  padding: 0.4cqw 0.75cqw;
+  border-radius: 0.72cqw;
+  background: var(--coral);
+  color: var(--cream);
+  font: 900 1.35cqw Cinzel, serif;
+}
+
+.passport-badge {
+  flex: 0 1 auto;
+  min-width: 0;
+  padding: 0.72cqw 1.15cqw;
+  border: 0.15cqw solid rgba(227, 197, 120, 0.48);
+  border-radius: 0.9cqw;
+  background: rgba(227, 197, 120, 0.12);
+  color: var(--gold);
+  font: 800 1.05cqw "JetBrains Mono", monospace;
+  text-transform: uppercase;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.passport-frame-tag {
+  flex: 0 0 auto;
+  color: var(--coral);
+  font: 900 1.15cqw "JetBrains Mono", monospace;
+  text-transform: uppercase;
+}
+
+.passport-body {
+  min-height: 0;
+  display: grid;
+  grid-template-columns: 25cqw minmax(0, 1fr) 19cqw;
+  align-items: stretch;
+  gap: 2.6cqw;
+}
+
+.passport-avatar {
+  min-width: 0;
+  border: 0.25cqw solid var(--gold);
+  border-radius: 1.9cqw;
+  padding: 0.8cqw;
+  background: linear-gradient(135deg, var(--gold), var(--coral), #9BE7EE);
+  align-self: start;
+}
+
+.passport-photo {
+  aspect-ratio: 0.78;
+  border-radius: 1.15cqw;
+  overflow: hidden;
+  background: var(--green-2);
+  border: 0.15cqw solid rgba(227, 197, 120, 0.45);
+  display: grid;
+  grid-template-rows: 1fr auto;
+}
+
+.passport-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  min-height: 0;
+}
+
+.passport-placeholder {
+  display: grid;
+  place-items: center;
+  text-align: center;
+  color: rgba(250, 246, 238, 0.76);
+  font: 900 1.38cqw "JetBrains Mono", monospace;
+}
+
+.passport-photo-ribbon {
+  padding: 0.82cqw 0.6cqw;
+  background: rgba(6, 24, 18, 0.94);
+  border-top: 0.15cqw solid rgba(227, 197, 120, 0.38);
+  color: var(--gold);
+  font: 900 0.95cqw "JetBrains Mono", monospace;
+  text-align: center;
+}
+
+.passport-info {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.18cqw;
+}
+
+.passport-name {
+  color: var(--cream);
+  font: 900 clamp(14px, 4.1cqw, 48px) Outfit, sans-serif;
+  line-height: 1.02;
+  text-transform: uppercase;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.passport-field-label {
+  display: block;
+  color: rgba(243, 235, 221, 0.68);
+  font: 800 0.9cqw "JetBrains Mono", monospace;
+  text-transform: uppercase;
+  margin-bottom: 0.28cqw;
+}
+
+.passport-field-value {
+  color: var(--gold);
+  font: 800 1.42cqw "JetBrains Mono", monospace;
+  text-transform: uppercase;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.passport-class-pill {
+  display: inline-flex;
+  max-width: 100%;
+  padding: 0.7cqw 1.05cqw;
+  border: 0.17cqw solid var(--coral);
+  border-radius: 0.95cqw;
+  background: rgba(255, 42, 133, 0.18);
+  color: var(--cream);
+  font: 900 1.35cqw "JetBrains Mono", monospace;
+  text-transform: uppercase;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.passport-tagline {
+  color: rgba(227, 197, 120, 0.95);
+  font: italic 1.28cqw Cinzel, serif;
+  line-height: 1.35;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.passport-loadout {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6cqw;
+  min-width: 0;
+}
+
+.passport-chip {
+  max-width: 100%;
+  padding: 0.43cqw 0.75cqw;
+  border: 0.12cqw solid rgba(227, 197, 120, 0.38);
+  border-radius: 0.62cqw;
+  background: rgba(13, 56, 44, 0.8);
+  color: var(--gold);
+  font: 800 0.92cqw "JetBrains Mono", monospace;
+  text-transform: uppercase;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.passport-qr-panel {
+  min-width: 0;
+  align-self: stretch;
+  border-left: 0.15cqw solid rgba(227, 197, 120, 0.25);
+  padding-left: 1.6cqw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 1.15cqw;
+}
+
+.passport-qr-box {
+  width: 100%;
+  padding: 1.1cqw;
+  border: 0.24cqw solid var(--gold);
+  border-radius: 1.35cqw;
+  background: var(--cream);
+  color: var(--green-deep);
+  text-align: center;
+}
+
+.passport-qr-art {
+  aspect-ratio: 1;
+  border-radius: 0.72cqw;
+  display: grid;
+  place-items: center;
+  color: var(--green-deep);
+}
+
+.passport-qr-caption {
+  margin-top: 0.45cqw;
+  font: 900 0.82cqw "JetBrains Mono", monospace;
+  text-transform: uppercase;
+}
+
+.passport-seal {
+  width: 9.2cqw;
+  aspect-ratio: 1;
+  border-radius: 999px;
+  background:
+    radial-gradient(circle at 28% 25%, #fff6cd, transparent 22%),
+    conic-gradient(from 25deg, #E3C578, #FF2A85, #9BE7EE, #D4AF37, #E3C578);
+  border: 0.25cqw solid rgba(250, 246, 238, 0.85);
+  color: var(--green-deep);
+  display: grid;
+  place-items: center;
+  text-align: center;
+  font: 900 0.82cqw "JetBrains Mono", monospace;
+  text-transform: uppercase;
+  box-shadow: 0 1cqw 2.5cqw rgba(0, 0, 0, 0.3);
+}
+
+.passport-id {
+  min-width: 0;
+  color: var(--cream-2);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.passport-id strong {
+  color: var(--gold);
+}
+
+.passport-barcode {
+  flex: 0 0 31cqw;
+  height: 3.6cqw;
+  border-radius: 0.8cqw;
+  background:
+    repeating-linear-gradient(90deg, var(--green-deep) 0 0.28cqw, transparent 0.28cqw 0.55cqw, var(--green-deep) 0.55cqw 0.72cqw, transparent 0.72cqw 1.05cqw),
+    var(--cream);
+  border: 0.15cqw solid rgba(227, 197, 120, 0.8);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #041512;
+}
+::-webkit-scrollbar-thumb {
+  background: #0f3830;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #ff2a85;
+}
